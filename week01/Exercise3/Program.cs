@@ -10,7 +10,7 @@ class Program
 
         while (guess != randomNumber)
         {            
-            Console.WriteLine("What is your ?: ");
+            Console.WriteLine("What is your guess ?: ");
             guess = int.Parse(Console.ReadLine());
             
             if (randomNumber < guess)
