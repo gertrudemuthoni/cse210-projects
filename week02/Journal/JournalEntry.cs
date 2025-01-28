@@ -3,26 +3,21 @@ using System.Dynamic;
 
 public class JournalEntry  
 {
-    public string UserPrompt{get; set;}
-    public string UserResponse{get; set;} 
-    public DateTime EnterDate{get; set;}
+    public string Prompt{get; set;}
+    public string Response{get; set;} 
+    public string Date{get; set;}
 
-    public JournalEntry(string userPrompt, string userResponse)
+    public JournalEntry(string prompt, string response, string date)
     {
-        UserPrompt = userPrompt;
-        UserResponse = userResponse;
-        EnterDate = DateTime.Now;   
-    }  
-
-    public void DisplayEntries()
-    {
-        Console.WriteLine($"Prompt: {UserPrompt}");
-        Console.WriteLine($"Response: {UserResponse}");
-        Console.WriteLine($"Date: {EnterDate}");    
+        Prompt = prompt;
+        Response = response;
+        Date = date;   
     }
-
-    public string AddEntry()
+    public void Display()
     {
-        return $"{UserPrompt},{UserResponse},{EnterDate}";
-    }        
+        Console.WriteLine($"Prompt: {Prompt}");
+        Console.WriteLine($"Response: {Response}");
+        Console.WriteLine($"Date: {Date}");    
+    
+    }       
 }

@@ -4,72 +4,68 @@ using System.IO;   // Necessary for streamwriter
 
 public class Journal
 {
-    public List<JournalEntry> Entries {get; set;}
-
-    public Journal()
+    private List<JournalEntry> entries = new List<JournalEntry>();    
+    public void AddEntry(string prompt, string response)
     {
-        Entries = new List<JournalEntry>();  
-    }   
-    public void AddEntry(string userPrompt, string userResponse)
-    {
-        JournalEntry newEntry = new JournalEntry(userPrompt, userResponse);
-        Entries.Add(newEntry);      
+        string currentDate = DateTime.Now.ToString("MM/dd/yyyy");   
+        entries.Add(new JournalEntry(prompt, response, currentDate));
     }
     public void DisplayEntries()
     {
-        foreach (JournalEntry entry in Entries)
+        if (entries.Count == 0)
         {
-            entry.DisplayEntries();
-            Console.WriteLine();
+            Console.WriteLine("No entries to display.");
+            return;
+        }   
+        else
+        {
+            foreach (JournalEntry entry in entries)
+            {
+                entry.Display();
+                Console.WriteLine();
+            }
         }
     }
     
     public void SaveToFile(string fileName)
     {
-        using (StreamWriter writer = new StreamWriter(fileName))
+        try
         {
-            foreach (JournalEntry entry in Entries)
+            using (StreamWriter writer = new StreamWriter(fileName))
             {
-                writer.WriteLine($"{entry.UserPrompt}, {entry.UserResponse}, {entry.EnterDate}");   
-    
-
+                foreach (JournalEntry entry in entries)
+                {
+                    writer.WriteLine($"{entry.Prompt}, {entry.Response}, {entry.Date}");
+                }
             }
+            Console.WriteLine($"Entry added successfully to {fileName}!");
         }
-
-    Console.WriteLine($"Entry added successfully to {fileName}!");
-} 
-
-public void LoadFromFile(string fileName)
-{
-    string[] lines = File.ReadAllLines(fileName);
-    foreach (string line in lines)
-    {
-        string[] parts = line.Split(',');
-        if (parts.Length >= 2)
+        catch (Exception e)
         {
-            AddEntry(parts[0], parts[1]);
-        }   
-    }
-    Console.WriteLine($"Entries loaded successfully from {fileName}!");
-}
+            Console.WriteLine($"Error saving to {fileName}: {e.Message}");
+        }
+    } 
 
-public string GetRandomPrompts()
-{
-    string[] prompts = GetAllPrompts(); 
-    var random = new Random();
-    return prompts[random.Next(prompts.Length)];
-}
-public string[] GetAllPrompts()
-{
-    return new string[]
+    public void LoadFromFile(string fileName)
     {
-        "Who was the most interesting person I interacted with today?",
-        "What was the best part of my day?",
-        "How did I see the hand of the Lord in my life today?",
-        "What was the strongest emotion I felt today?",
-        "If I had one thing I could do over today, what would it be?"
-    };
-}
+        try
+        {
+            string[] lines = File.ReadAllLines(fileName);
+            foreach (string line in lines)
+            {
+                string[] parts = line.Split(',');
+                if (parts.Length == 3)
+                {
+                    entries.Add(new JournalEntry(parts[0], parts[1], parts[2]));
+                }
+            }
+            Console.WriteLine($"Entries loaded successfully from {fileName}!");     
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error loading from {fileName}: {e.Message}");
+        }       
+    }
 }  
 
 

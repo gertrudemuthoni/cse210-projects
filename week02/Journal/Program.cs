@@ -5,19 +5,27 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Welcome to the Journal Program!");
-        Console.WriteLine("Please select one of the following options:");
-        JournalEntry journalEntry = new JournalEntry("", "");//create a new instance of the JournalEntry class 
-        Journal journal = new Journal(); // create a new instance of the Journal class
-        bool running = true;    
+        Journal journal = new Journal();
+        string[] prompts = {
+            "Who was the most interesting person I interacted with today?",
+            "What was the best part of my day?",
+            "How did I see the hand of the Lord in my life today?",
+            "What was the strongest emotion I felt today?",
+            "If I had one thing I could change about today, what would it be?", 
+        };
+
+        bool running = true;   
 
         while (running)
         {
-            Console.WriteLine("1. Write");
+            Console.WriteLine("\n Journal Menu");   
+            Console.WriteLine("1. Write");           
             Console.WriteLine("2. Display");
             Console.WriteLine("3. Load");
             Console.WriteLine("4. Save");   
             Console.WriteLine("5. Quit");
+
+            Console.WriteLine();
             Console.WriteLine("What would you like to do?");
 
             string input = Console.ReadLine();
@@ -25,70 +33,44 @@ class Program
             switch (input)
             {
                 case "1":
-                    WriteNewEntry(journal);   
+                    Console.WriteLine(" Select a prompt: "); 
+                    Console.WriteLine();
+                    for (int i = 0; i < prompts.Length; i++)
+                    {
+                        Console.WriteLine($"{i + 1}. {prompts[i]}");
+                    }  
+                    int promptIndex = int.Parse(Console.ReadLine());
+                    Console.WriteLine(prompts[promptIndex - 1]);    
+                    Console.WriteLine("Enter your response: "); 
+                    string response = Console.ReadLine();   
+                    journal.AddEntry(prompts[promptIndex - 1], response);   
                     break;
+
                 case "2":
                     journal.DisplayEntries();   
                     break;
+
                 case "3":
-                    LoadJournal(journal);
+                    Console.WriteLine("Enter the name of the file you would like to load: ");
+                    string loadFileName = Console.ReadLine(); 
+                    journal.LoadFromFile(loadFileName);   
                     break;
+
                 case "4":
-                    SaveJournal(journal);
+                    Console.WriteLine("Enter the name of the file you would like to save: ");
+                    string saveFileName = Console.ReadLine();   
+                    journal.SaveToFile(saveFileName);   
                     break;
+
                 case "5":
                     running = false;
                     break;
+
                 default:
                     Console.WriteLine("Invalid input. Please try again.");
                     break;                    
             }
         }   
     }
-    static void WriteNewEntry(Journal journal)
-    {
-        //Display prompts   
-        string [] prompts = journal.GetAllPrompts(); 
-        Console.WriteLine("Select a prompt from the following list:");    
-        for (int i = 0; i < prompts.Length; i++)    
-        {
-            Console.WriteLine($"{i + 1}. {prompts[i]}");
-        }   
-        
-        // Ger user input   
-        int promptChoice = -1;
-        while(promptChoice < 1 || promptChoice > prompts.Length)
-        {
-            Console.WriteLine("Enter the number of the prompt you would like to use:");
-            string input = Console.ReadLine();
-            if (!int.TryParse(input, out promptChoice)|| promptChoice < 1 || promptChoice > prompts.Length)    
-            {
-                Console.WriteLine("Invalid input. Please try again.");
-            }
-        }
-
-        string selectedPrompt = prompts[promptChoice - 1];
-        Console.WriteLine($"Selected prompt: {selectedPrompt}");    
-        Console.WriteLine("Enter your response:");  
-        string response = Console.ReadLine();  
-
-        journal.AddEntry(selectedPrompt, response); 
-        Console.WriteLine("Entry added successfully!");
-
-    }
-    static void LoadJournal(Journal journal)
-    {
-        Console.WriteLine("Enter the name of the file you would like to load:");
-        string fileName = Console.ReadLine();
-        journal.LoadFromFile(fileName);
-         
-    } 
-
-    static void SaveJournal(Journal journal)
-    {
-        Console.WriteLine("Enter the name of the file you would like to save to:");
-        string fileName = Console.ReadLine();
-        journal.SaveToFile(fileName); 
-    }
-}
+}    
 
