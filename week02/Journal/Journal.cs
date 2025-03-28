@@ -7,8 +7,10 @@ public class Journal
     private List<JournalEntry> entries = new List<JournalEntry>();    
     public void AddEntry(string prompt, string response)
     {
-        string currentDate = DateTime.Now.ToString("MM/dd/yyyy");   
-        entries.Add(new JournalEntry(prompt, response, currentDate));
+        string currentDate = DateTime.Now.ToString("MM/dd/yyyy"); 
+        JournalEntry newEntry = new JournalEntry(prompt, response, currentDate);  
+        entries.Add(newEntry);
+
     }
     public void DisplayEntries()
     {
@@ -35,7 +37,7 @@ public class Journal
             {
                 foreach (JournalEntry entry in entries)
                 {
-                    writer.WriteLine($"{entry.Prompt}, {entry.Response}, {entry.Date}");
+                    writer.WriteLine($"{entry._prompt}, {entry._response}, {entry._date}");
                 }
             }
             Console.WriteLine($"Entry added successfully to {fileName}!");

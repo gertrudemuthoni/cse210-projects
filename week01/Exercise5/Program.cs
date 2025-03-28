@@ -1,6 +1,7 @@
 using System;
 
 class Program
+
 {
     static void Main(string[] args)
     {
@@ -22,17 +23,17 @@ class Program
     static string PromptUserName()
     {
         Console.Write("Please enter your name: ");
-        string name = Console.ReadLine();
+        string userName = Console.ReadLine();
 
-        return name;
+        return userName;
     }
 
     static int PromptUserNumber()
     {
         Console.Write("Please enter your favorite number: ");
-        int number = int.Parse(Console.ReadLine());
+        int userNumber = int.Parse(Console.ReadLine());
 
-        return number;
+        return userNumber;
     }
 
     static int SquareNumber(int number)
