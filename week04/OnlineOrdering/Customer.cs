@@ -26,8 +26,8 @@ public class Customer
 
     public bool IsUSAResidence()
     {
-        string country = _address.GetCountry();
-        return _address.IndicateLocation(country);
+        _address.GetCountry();
+        return _address.IndicateLocation(_address.GetCountry());
 
     }
         
