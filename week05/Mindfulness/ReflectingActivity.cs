@@ -96,5 +96,6 @@ public class ReflectingActivity : Activity
         Console.Write($"> {GetRandomQuestion()} ");
         base.ShowSpinner(7);
         Console.WriteLine();
+        Console.WriteLine();
     }
 }
