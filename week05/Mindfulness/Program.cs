@@ -91,5 +91,6 @@ class Program
         // clear console
         Console.Clear();
         Console.WriteLine("You Quit!");
+        Console.WriteLine("Thank you for using the Mindfulness program. Have a great day!");
     }
 }
