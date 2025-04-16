@@ -1,9 +1,9 @@
-public class Writing : Assignment
+public class WritingAssignment : Assignment
 {
     private string _title;
 
     // Constructor for the Writing class
-    public Writing(string studentName, string topic, string title) : base(studentName, topic)
+    public WritingAssignment(string studentName, string topic, string title) : base(studentName, topic)
     {
         _title = title;
     }

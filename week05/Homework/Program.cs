@@ -5,18 +5,18 @@ class Program
     static void Main(string[] args)
     {
         // Instantiate 3 Math Objects
-        Math math1 = new Math("John Doe", "Algebra", "Chapter 1", "Problems 1-10");
-        Math math2 = new Math("Jane Smith", "Geometry", "Chapter 2", "Problems 11-20");
-        Math math3 = new Math("Alice Johnson", "Calculus", "Chapter 3", "Problems 21-30");
+        MathAssignment math1 = new MathAssignment("John Doe", "Algebra", "Chapter 1", "Problems 1-10");
+        MathAssignment math2 = new MathAssignment("Jane Smith", "Geometry", "Chapter 2", "Problems 11-20");
+        MathAssignment math3 = new MathAssignment("Alice Johnson", "Calculus", "Chapter 3", "Problems 21-30");
 
         // Create a list of Math objects
-        List<Math> mathAssignments = new List<Math>();
+        List<MathAssignment> mathAssignments = new List<MathAssignment>();
         mathAssignments.Add(math1);
         mathAssignments.Add(math2);
         mathAssignments.Add(math3);
 
         // Display the homework details for each Math object
-           foreach (Math math in mathAssignments)
+           foreach (MathAssignment math in mathAssignments)
            {
             Console.WriteLine(math.GetSummary());
             Console.WriteLine(math.GetHomeworkList());
@@ -24,6 +24,23 @@ class Program
            }
 
         //    Instantiate 3 WritingAssignment objects
+        WritingAssignment writing1 = new WritingAssignment("John Doe", "Essay", "The Great Gatsby");
+        WritingAssignment writing2 = new WritingAssignment("Jane Smith", "Research Paper", "Climate Change Effects");
+        WritingAssignment writing3 = new WritingAssignment("Alice Johnson", "Short Story", "The Last Leaf");
+
+        // Create a list of WritingAssignment objects
+        List<WritingAssignment> writingAssignments = new List<WritingAssignment>();
+        writingAssignments.Add(writing1);
+        writingAssignments.Add(writing2);
+        writingAssignments.Add(writing3);
+
+        // Display the writing details for each WritingAssignment object
+        foreach (WritingAssignment writing in writingAssignments)
+        {
+            Console.WriteLine(writing.GetSummary());
+            Console.WriteLine(writing.GetWritingInformation());
+            Console.WriteLine();
+        }
         
 
 
